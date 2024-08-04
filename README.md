@@ -10,7 +10,7 @@
 
 - **STACK :**
 
-  - **Fair Share** : `0.2.0`
+  - **Fair Share** : `0.3.0`
   - **React** : `18.3.1`
   - **React Dom** : `18.3.1`
 
@@ -18,7 +18,7 @@
 
 - **URLS :**
 
-  - **Website : [Fair Share](https://fair-share.netlify.app)**
+  - **Website : [Fair Share](https://dagt-fair-share.netlify.app)**
 
 ---
 
