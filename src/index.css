@@ -23,6 +23,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #90d1d8de;
 }
 
 .app {
@@ -175,4 +176,10 @@ form h2 {
   font-style: italic;
   font-size: 15px;
   color: rgba(0, 0, 0, 0.5);
+}
+
+/* TODO: Delete .buttonDisabled */
+.buttonDisabled {
+  filter: grayscale();
+  opacity: 0.8;
 }

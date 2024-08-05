@@ -1,13 +1,20 @@
+import { useState } from "react";
 import FriendsData from "../data/friendsData.json";
 import VersionWatermark from "./VersionWatermark";
 
 export default function App() {
+  const [showAddFriend, setShowAddFriend] = useState(false);
+
+  function handleShowAddFriend() {
+    setShowAddFriend((showAddFriend) => !showAddFriend);
+  }
+
   return (
     <div className='app'>
       <div className='sidebar'>
         <FriendList />
-        <FormAddFriend />
-        <Button>Close</Button>
+        {showAddFriend && <FormAddFriend />}
+        <Button onClick={handleShowAddFriend}>{showAddFriend ? "Close" : "Add friend"}</Button>
       </div>
       <FormSplitBill />
       <VersionWatermark />
@@ -43,14 +50,14 @@ function Friend({ friend }) {
           You and {friend.name} are even
         </p>
       )}
-      <Button>Select</Button>
+      <Button disabled={true}>Select</Button>
     </li>
   )
 }
 
-function Button({ children }) {
+function Button({ children, onClick, disabled }) {
   return (
-    <button className="button">{children}</button>
+    <button className={`button ${disabled ? "buttonDisabled" : ""}`} onClick={onClick} > {children}</button >
   )
 }
 
@@ -59,7 +66,7 @@ function FormAddFriend() {
     <form className="form-add-friend">
       <InputText>👬Friend Name</InputText>
       <InputText>📷 Image URL</InputText>
-      <Button>Add</Button>
+      <Button disabled={true}>Add</Button>
     </form>
   )
 }
@@ -83,7 +90,7 @@ function FormSplitBill() {
       <InputText>🙍‍♂️ Your expense</InputText>
       <InputText disabled="disabled">👬 {selectedFriend}'s expense</InputText>
       <InputSelect selectedFriend={selectedFriend} />
-      <Button>Split bill</Button>
+      <Button disabled={true}>Split bill</Button>
     </form>
   )
 }
