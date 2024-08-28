@@ -45,6 +45,7 @@ body {
   transition: 0.3s;
 }
 
+.button-selected,
 .button:hover {
   background-color: var(--color-dark);
 }
