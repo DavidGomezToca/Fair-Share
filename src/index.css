@@ -169,18 +169,3 @@ form h2 {
   letter-spacing: -0.5px;
   margin-bottom: 1.6rem;
 }
-
-.versionWatermark {
-  position: fixed;
-  top: 10px;
-  right: 15px;
-  font-style: italic;
-  font-size: 15px;
-  color: rgba(0, 0, 0, 0.5);
-}
-
-/* TODO: Delete .buttonDisabled */
-.buttonDisabled {
-  filter: grayscale();
-  opacity: 0.8;
-}

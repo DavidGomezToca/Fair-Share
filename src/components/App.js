@@ -1,6 +1,5 @@
 import { useState } from "react";
 import FriendsData from "../data/friendsData.json";
-import VersionWatermark from "./VersionWatermark";
 
 export default function App() {
   const [friends, setFriends] = useState(FriendsData.friends);
@@ -29,7 +28,6 @@ export default function App() {
         <Button onClick={handleShowAddFriend}>{showAddFriend ? "Close" : "Add friend"}</Button>
       </div>
       {selectedFriend && <FormSplitBill selectedFriend={selectedFriend.name} />}
-      <VersionWatermark />
     </div>
   )
 }
@@ -133,7 +131,7 @@ function InputReadOnly({ children, paidByFriend }) {
   return (
     <>
       <label>{children}</label>
-      <input type="text" value={paidByFriend} disabled />
+      <input type="number" value={paidByFriend} disabled />
     </>
   )
 }
