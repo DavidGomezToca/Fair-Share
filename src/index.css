@@ -169,3 +169,18 @@ form h2 {
   letter-spacing: -0.5px;
   margin-bottom: 1.6rem;
 }
+
+.swal2-text {
+  font-size: 18px !important;
+}
+
+.swal2-popup {
+  font-size: 12px !important;
+}
+
+@media (max-width: 1000px) {
+  .app {
+    grid-template-columns: 1fr;
+    row-gap: 4rem;
+  }
+}

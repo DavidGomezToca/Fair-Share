@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { useState } from "react";
 import FriendsData from "../data/friendsData.json";
 
@@ -120,7 +121,31 @@ function FormSplitBill({ selectedFriend, onSplitBill }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!bill || !paidByUser) return;
+
+    if (!bill || !paidByUser) {
+      Swal.fire({
+        title: "All fields required", icon: "info",
+        customClass: {
+          htmlContainer: "swal2-text",
+          confirmButton: "swal2-text",
+          popup: "swal2-popup"
+        }
+      });
+      return;
+    };
+
+    if (bill < 0 || paidByUser < 0) {
+      Swal.fire({
+        title: "Values must be above 0", icon: "info",
+        customClass: {
+          htmlContainer: "swal2-text",
+          confirmButton: "swal2-text",
+          popup: "swal2-popup"
+        }
+      });
+      return;
+    };
+
     onSplitBill(whoIsPaying === "user" ? paidByFriend : -paidByUser);
   }
 
