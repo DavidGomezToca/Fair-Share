@@ -124,9 +124,32 @@ form {
   margin-bottom: 1.6rem;
   padding: 1.2rem;
 }
+
 .form-split-bill {
-  grid-template-columns: 1fr 12rem;
+  grid-template-columns: 1fr 18rem;
   padding: 3.2rem 4rem;
+  align-items: start;
+  width: 50vh;
+}
+
+.form-split-bill-input-div {
+  margin-bottom: 10px;
+}
+
+.form-split-bill-input {
+  width: 100%;
+}
+
+.form-input-validation-message {
+  display: flex;
+  justify-content: center;
+  margin-top: 4px;
+  font-size: 1.4rem;
+  color: #e03131;
+}
+
+.validated {
+  display: none;
 }
 
 label {

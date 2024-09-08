@@ -4,7 +4,7 @@ import FriendsData from "../data/friendsData.json";
 
 export default function App() {
   const [friends, setFriends] = useState(FriendsData.friends);
-  const [showAddFriend, setShowAddFriend] = useState(true);
+  const [showAddFriend, setShowAddFriend] = useState(false);
   const [selectedFriend, setSelectedFriend] = useState(friends[0]);
 
   function handleShowAddFriend() {
@@ -114,52 +114,71 @@ function InputText({ children, value, setValue }) {
 }
 
 function FormSplitBill({ selectedFriend, onSplitBill }) {
-  const [bill, setBill] = useState("");
-  const [paidByUser, setPaidByUser] = useState("");
-  const paidByFriend = bill ? bill - paidByUser : "";
+  const [bill, setBill] = useState(0);
+  const [paidByUser, setPaidByUser] = useState(0);
   const [whoIsPaying, setWhoIsPaying] = useState("user");
+  const [inputBillValidated, setInputBillValidated] = useState(true);
+  const paidByFriend = bill ? bill - paidByUser : "";
+
+  function handleBill(billValue) {
+    if (billValue > 0) {
+      setBill(billValue)
+      if (billValue < paidByUser)
+        setPaidByUser(billValue)
+    }
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (!bill || !paidByUser) {
+    if (bill === 0) {
+      setInputBillValidated(false);
+      return;
+    };
+
+    if ((bill === paidByUser && whoIsPaying === "user") || (bill === paidByFriend && whoIsPaying === "friend")) {
+      let title = "Splitting this bill won't affect your current balance with " + selectedFriend.name;
       Swal.fire({
-        title: "All fields required", icon: "info",
+        title: title, icon: "question",
         customClass: {
           htmlContainer: "swal2-text",
           confirmButton: "swal2-text",
           popup: "swal2-popup"
         }
       });
-      return;
-    };
-
-    if (bill < 0 || paidByUser < 0) {
+    } else {
+      onSplitBill(whoIsPaying === "user" ? paidByFriend : -paidByUser);
       Swal.fire({
-        title: "Values must be above 0", icon: "info",
+        title: "Bill split succesfully", icon: "success",
         customClass: {
           htmlContainer: "swal2-text",
           confirmButton: "swal2-text",
           popup: "swal2-popup"
         }
       });
-      return;
-    };
-
-    onSplitBill(whoIsPaying === "user" ? paidByFriend : -paidByUser);
+    }
   }
 
   return (
     <form className="form-split-bill" onSubmit={handleSubmit}>
       <h2>Split a bill with {selectedFriend.name}</h2>
-      <label>💰 Bill value</label>
-      <input type="number" value={bill} onChange={(e) => setBill(Number(e.target.value))} maxLength={10} />
-      <label>🙍‍♂️ Your expense</label>
-      <input type="number" value={paidByUser} onChange={(e) => setPaidByUser(Number(e.target.value) > bill ? paidByUser : Number(e.target.value))} maxLength={10} />
+      <div>
+        <label>💰 Bill value</label>
+      </div>
+      <div className="form-split-bill-input-div">
+        <input className="form-split-bill-input" type="number" value={bill} onChange={(e) => handleBill(Number(e.target.value))} maxLength={10} />
+        <p className={`form-input-validation-message ${inputBillValidated ? "validated" : ""}`}>* Must be above 0 *</p>
+      </div>
+      <div>
+        <label>🙍‍♂️ Your expense</label>
+      </div>
+      <div className="form-split-bill-input-div">
+        <input className="form-split-bill-input" type="number" value={paidByUser} onChange={(e) => setPaidByUser(Number(e.target.value) <= bill && Number(e.target.value) >= 0 ? Number(e.target.value) : paidByUser)} maxLength={10} />
+      </div>
       <InputReadOnly paidByFriend={paidByFriend}>👬 {selectedFriend.name}'s expense</InputReadOnly>
       <InputSelect selectedFriend={selectedFriend.name} whoIsPaying={whoIsPaying} setWhoIsPaying={setWhoIsPaying}>🤑 Who is paying the bill</InputSelect>
       <Button>Split bill</Button>
-    </form>
+    </form >
   )
 }
 
@@ -167,7 +186,9 @@ function InputReadOnly({ children, paidByFriend }) {
   return (
     <>
       <label>{children}</label>
-      <input type="number" value={paidByFriend} disabled />
+      <div className="form-split-bill-input-div">
+        <input className="form-split-bill-input" type="number" value={paidByFriend} disabled />
+      </div>
     </>
   )
 }
