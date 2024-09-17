@@ -1,4 +1,3 @@
-import Swal from "sweetalert2";
 import { useState } from "react";
 import FriendsData from "../data/friendsData.json";
 
@@ -6,6 +5,8 @@ export default function App() {
   const [friends, setFriends] = useState(FriendsData.friends);
   const [showAddFriend, setShowAddFriend] = useState(false);
   const [selectedFriend, setSelectedFriend] = useState(friends[0]);
+  const [showMessage, setShowMessage] = useState(false);
+  const [splitSuccess, setSplitSuccess] = useState(false);
 
   function handleShowAddFriend() {
     setShowAddFriend((showAddFriend) => !showAddFriend);
@@ -33,7 +34,8 @@ export default function App() {
         {showAddFriend && <FormAddFriend onAddFriend={handleAddFriend} />}
         <Button onClick={handleShowAddFriend}>{showAddFriend ? "Close" : "Add friend"}</Button>
       </div>
-      {selectedFriend && <FormSplitBill selectedFriend={selectedFriend} onSplitBill={handleSplitBill} />}
+      {selectedFriend && <FormSplitBill selectedFriend={selectedFriend} onSplitBill={handleSplitBill} setShowMessage={setShowMessage} setSplitSuccess={setSplitSuccess} />}
+      {showMessage && <Message setShowMessage={setShowMessage} splitSuccess={splitSuccess} />}
     </div>
   )
 }
@@ -113,7 +115,7 @@ function InputText({ children, value, setValue }) {
   )
 }
 
-function FormSplitBill({ selectedFriend, onSplitBill }) {
+function FormSplitBill({ selectedFriend, onSplitBill, setShowMessage, setSplitSuccess }) {
   const [bill, setBill] = useState(0);
   const [paidByUser, setPaidByUser] = useState(0);
   const [whoIsPaying, setWhoIsPaying] = useState("user");
@@ -137,25 +139,12 @@ function FormSplitBill({ selectedFriend, onSplitBill }) {
     };
 
     if ((bill === paidByUser && whoIsPaying === "user") || (bill === paidByFriend && whoIsPaying === "friend")) {
-      let title = "Splitting this bill won't affect your current balance with " + selectedFriend.name;
-      Swal.fire({
-        title: title, icon: "question",
-        customClass: {
-          htmlContainer: "swal2-text",
-          confirmButton: "swal2-text",
-          popup: "swal2-popup"
-        }
-      });
+      setShowMessage(true);
+      setSplitSuccess(false);
     } else {
       onSplitBill(whoIsPaying === "user" ? paidByFriend : -paidByUser);
-      Swal.fire({
-        title: "Bill split succesfully", icon: "success",
-        customClass: {
-          htmlContainer: "swal2-text",
-          confirmButton: "swal2-text",
-          popup: "swal2-popup"
-        }
-      });
+      setShowMessage(true);
+      setSplitSuccess(true);
     }
   }
 
@@ -202,5 +191,18 @@ function InputSelect({ children, selectedFriend, whoIsPaying, setWhoIsPaying }) 
         <option value="friend">{selectedFriend}</option>
       </select>
     </>
+  )
+}
+
+function Message({ setShowMessage, splitSuccess }) {
+  return (
+    <div className="message-div">
+      <div className="message-text">
+        <p>{splitSuccess ? "Bill split succesfully!!" : "Splitting this bill won't affect your current balance."}</p>
+      </div>
+      <div className="close-message-div">
+        <button className="close-message-button" onClick={() => setShowMessage(false)}>ACCEPT</button>
+      </div>
+    </div>
   )
 }

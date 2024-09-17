@@ -114,7 +114,6 @@ form {
   display: grid;
   align-items: center;
   gap: 1.2rem;
-
   background-color: var(--color-lightest);
   border-radius: 7px;
 }
@@ -193,12 +192,55 @@ form h2 {
   margin-bottom: 1.6rem;
 }
 
-.swal2-text {
-  font-size: 18px !important;
+.message-div {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgb(50, 50, 50, 0.4);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.4rem 0;
 }
 
-.swal2-popup {
-  font-size: 12px !important;
+.message-text {
+  flex-direction: column;
+  align-items: center;
+}
+
+.message-text p {
+  display: flex;
+  background-color: var(--color-lightest);
+  border-radius: 10px;
+  font-size: 2rem;
+  font-weight: bold;
+  width: 100%;
+  padding: 18px 24px;
+}
+
+.close-message-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.close-message-button {
+  font-weight: bold;
+  background-color: var(--color-medium);
+  border-radius: 10px;
+  padding: 14px 24px;
+  font-size: 1.6rem;
+  cursor: pointer;
+  border: none;
+}
+
+.close-message-button:hover {
+  background-color: var(--color-dark);
+  transform: scale(1.02);
 }
 
 @media (max-width: 1000px) {
