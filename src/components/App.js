@@ -1,4 +1,3 @@
-import Swal from "sweetalert2";
 import { useState } from "react";
 import FriendsData from "../data/friendsData.json";
 
@@ -137,25 +136,11 @@ function FormSplitBill({ selectedFriend, onSplitBill }) {
     };
 
     if ((bill === paidByUser && whoIsPaying === "user") || (bill === paidByFriend && whoIsPaying === "friend")) {
-      let title = "Splitting this bill won't affect your current balance with " + selectedFriend.name;
-      Swal.fire({
-        title: title, icon: "question",
-        customClass: {
-          htmlContainer: "swal2-text",
-          confirmButton: "swal2-text",
-          popup: "swal2-popup"
-        }
-      });
+      // let title = "Splitting this bill won't affect your current balance with " + selectedFriend.name;
+      // TODO: Add Notification this bill won't affect your current balance
     } else {
       onSplitBill(whoIsPaying === "user" ? paidByFriend : -paidByUser);
-      Swal.fire({
-        title: "Bill split succesfully", icon: "success",
-        customClass: {
-          htmlContainer: "swal2-text",
-          confirmButton: "swal2-text",
-          popup: "swal2-popup"
-        }
-      });
+      // TODO: Add Notification bill split successfully
     }
   }
 
