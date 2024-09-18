@@ -139,12 +139,11 @@ function FormSplitBill({ selectedFriend, onSplitBill, setShowMessage, setSplitSu
     };
 
     if ((bill === paidByUser && whoIsPaying === "user") || (bill === paidByFriend && whoIsPaying === "friend")) {
-      setShowMessage(true);
-      setSplitSuccess(false);
+      // let title = "Splitting this bill won't affect your current balance with " + selectedFriend.name;
+      // TODO: Add Notification this bill won't affect your current balance
     } else {
       onSplitBill(whoIsPaying === "user" ? paidByFriend : -paidByUser);
-      setShowMessage(true);
-      setSplitSuccess(true);
+      // TODO: Add Notification bill split successfully
     }
   }
 
