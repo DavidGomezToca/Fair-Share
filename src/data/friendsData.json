@@ -15,8 +15,20 @@
     {
       "id": 2,
       "name": "Anthony",
-      "image": "https://i.pravatar.cc/48?u=499476",
+      "image": "https://i.pravatar.cc/48?u=499473",
       "balance": 0
+    },
+    {
+      "id": 3,
+      "name": "Madison",
+      "image": "https://i.pravatar.cc/48?u=499477",
+      "balance": 0
+    },
+    {
+      "id": 4,
+      "name": "George",
+      "image": "https://i.pravatar.cc/48?u=499486",
+      "balance": 10
     }
   ]
 }
