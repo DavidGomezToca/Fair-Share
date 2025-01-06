@@ -29,6 +29,7 @@ body {
   align-items: center;
   justify-content: center;
   background-color: var(--background-body);
+  padding: 2rem 0;
 }
 
 .app {
@@ -75,12 +76,16 @@ body {
   column-gap: 1.6rem;
   padding: 1.2rem;
   border-radius: 7px;
-  transition: 0.5s;
+  transition: 0.3s;
+}
+
+.friend-selected {
+  background-color: var(--color-lightest);
 }
 
 .selected,
 .sidebar li:hover {
-  background-color: var(--color-lightest);
+  background-color: var(--color-light);
 }
 
 .sidebar li img {

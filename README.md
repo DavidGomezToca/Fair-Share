@@ -10,7 +10,7 @@
 
 - **STACK :**
 
-  - **Fair Share** : `1.4.0`
+  - **Fair Share** : `1.5.0`
   - **React** : `18.3.1`
   - **React Dom** : `18.3.1`
 

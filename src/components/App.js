@@ -4,7 +4,7 @@ import FriendsData from "../data/friendsData.json"
 export default function App() {
   const [friends, setFriends] = useState(FriendsData.friends)
   const [showAddFriend, setShowAddFriend] = useState(false)
-  const [selectedFriend, setSelectedFriend] = useState(friends[0])
+  const [selectedFriend, setSelectedFriend] = useState(friends[3])
   const [showMessage, setShowMessage] = useState(false)
   const [splitSuccess, setSplitSuccess] = useState(false)
 
@@ -49,7 +49,7 @@ function FriendList({ friends, selectedFriend, onSelection }) {
 function Friend({ friend, selectedFriend, onSelection }) {
   const isSelected = friend.id === selectedFriend?.id
   return (
-    <li>
+    <li className={`friend ${isSelected ? "friend-selected" : ""}`}>
       <img src={friend.image} alt={friend.name} />
       <h3>{friend.name}</h3>
       {friend.balance < 0 && (
@@ -123,7 +123,7 @@ function FormSplitBill({ selectedFriend, onSplitBill, setShowMessage, setSplitSu
   const paidByFriend = bill ? bill - paidByUser : ""
 
   function handleBill(billValue) {
-    if (billValue> 0) {
+    if (billValue > 0) {
       setBill(billValue)
       if (billValue < paidByUser)
         setPaidByUser(billValue)
