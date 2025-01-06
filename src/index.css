@@ -114,6 +114,15 @@ body {
   margin-right: 1.2rem;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.4rem;
+  margin: 20px 0;
+}
+
 .green {
   color: var(--green);
 }

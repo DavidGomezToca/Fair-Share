@@ -29,6 +29,18 @@
       "name": "George",
       "image": "https://i.pravatar.cc/48?u=499486",
       "balance": 10
+    },
+    {
+      "id": 5,
+      "name": "Anny",
+      "image": "https://i.pravatar.cc/48?u=499480",
+      "balance": 0
+    },
+    {
+      "id": 6,
+      "name": "Felix",
+      "image": "https://i.pravatar.cc/48?u=499483",
+      "balance": 0
     }
   ]
 }

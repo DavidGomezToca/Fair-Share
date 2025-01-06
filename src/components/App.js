@@ -7,6 +7,8 @@ export default function App() {
   const [selectedFriend, setSelectedFriend] = useState(friends[3])
   const [showMessage, setShowMessage] = useState(false)
   const [splitSuccess, setSplitSuccess] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const friendsPerPage = 5
 
   function handleShowAddFriend() {
     setShowAddFriend((showAddFriend) => !showAddFriend)
@@ -27,10 +29,37 @@ export default function App() {
     setSelectedFriend(null)
   }
 
+  const indexOfLastFriend = currentPage * friendsPerPage
+  const indexOfFirstFriend = indexOfLastFriend - friendsPerPage
+  const currentFriends = friends.slice(indexOfFirstFriend, indexOfLastFriend)
+
+  function handleNextPage() {
+    if (currentPage < Math.ceil(friends.length / friendsPerPage)) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  }
+
+  function handlePreviousPage() {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
+  }
+
   return (
     <div className="app">
       <div className="sidebar">
-        <FriendList friends={friends} selectedFriend={selectedFriend} onSelection={handleSelection} />
+        <FriendList friends={currentFriends} selectedFriend={selectedFriend} onSelection={handleSelection} />
+        <div className="pagination">
+          <Button onClick={handlePreviousPage} disabled={currentPage === 1}>
+            Previous
+          </Button>
+          <span>
+            Page {currentPage} of {Math.ceil(friends.length / friendsPerPage)}
+          </span>
+          <Button onClick={handleNextPage} disabled={currentPage === Math.ceil(friends.length / friendsPerPage)}>
+            Next
+          </Button>
+        </div>
         {showAddFriend && <FormAddFriend onAddFriend={handleAddFriend} />}
         <Button onClick={handleShowAddFriend}>{showAddFriend ? "Close" : "Add friend"}</Button>
       </div>
@@ -41,8 +70,10 @@ export default function App() {
 }
 
 function FriendList({ friends, selectedFriend, onSelection }) {
+  const visibleFriends = friends.slice(0, 5);
+
   return (
-    <ul>{friends.map(friend => <Friend key={friend.id} friend={friend} selectedFriend={selectedFriend} onSelection={onSelection} />)}</ul >
+    <ul>{visibleFriends.map(friend => <Friend key={friend.id} friend={friend} selectedFriend={selectedFriend} onSelection={onSelection} />)}</ul >
   )
 }
 
